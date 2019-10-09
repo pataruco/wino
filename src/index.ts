@@ -1,9 +1,13 @@
+import { promises as fs } from 'fs';
 import fetch from 'node-fetch';
+import path from 'path';
 import { Review } from '../typings/review';
 
 interface ReviewsResponse {
   reviews: Review[];
 }
+
+const rawReviewsPath = path.resolve(__dirname, '../data/reviews.json');
 
 const getReview = async ({ page = 0 }): Promise<Review[]> => {
   try {
@@ -37,5 +41,15 @@ const getReviewList = async ({ page = 0 }): Promise<Review[]> => {
 };
 
 const start = async () => {
-  const reviewList = await getReviewList({ page: 0 });
+  const rawReviews = await getReviewList({ page: 0 });
+  const reviews = rawReviews.map(review => ({
+    name: review.user.alias,
+    rate: review.rating,
+    comment: review.note,
+    timestamp: review.created_at,
+  }));
+
+  await fs.appendFile(rawReviewsPath, JSON.stringify({ reviews }));
 };
+
+start();
