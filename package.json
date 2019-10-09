@@ -5,6 +5,7 @@
   "author": "Pedro Martin <pataruco@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "csv-stringify": "^5.3.3",
     "node-fetch": "^2.6.0"
   },
   "description": "Jimmy data",
@@ -35,6 +36,7 @@
     ]
   },
   "scripts": {
-    "lint": "yarn tslint"
+    "lint": "yarn tslint",
+    "start": "yarn ts-node ./src/index.ts"
   }
 }

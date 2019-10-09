@@ -1,5 +1,5 @@
 {
-  "reviewList": [
+  "rawReviews": [
     {
       "id": 130043096,
       "rating": 4.5,
@@ -6955,7 +6955,7 @@
           }
         },
         "statistics": {
-          "followers_count": 113,
+          "followers_count": 114,
           "followings_count": 95,
           "ratings_count": 2337,
           "reviews_count": 762
@@ -8384,7 +8384,7 @@
           }
         },
         "statistics": {
-          "followers_count": 341,
+          "followers_count": 342,
           "followings_count": 69,
           "ratings_count": 2122,
           "reviews_count": 1663

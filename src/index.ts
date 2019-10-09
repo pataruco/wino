@@ -1,3 +1,4 @@
+import stringify from 'csv-stringify/lib/sync';
 import { promises as fs } from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
@@ -7,7 +8,9 @@ interface ReviewsResponse {
   reviews: Review[];
 }
 
-const rawReviewsPath = path.resolve(__dirname, '../data/reviews.json');
+const rawReviewsPath = path.resolve(__dirname, '../data/raw-reviews.json');
+const reviewsPath = path.resolve(__dirname, '../data/reviews.json');
+const csVReviewsPath = path.resolve(__dirname, '../data/reviews.csv');
 
 const getReview = async ({ page = 0 }): Promise<Review[]> => {
   try {
@@ -41,15 +44,33 @@ const getReviewList = async ({ page = 0 }): Promise<Review[]> => {
 };
 
 const start = async () => {
+  // tslint:disable-next-line: no-console
+  console.log('Start fetch reviews 🧨');
   const rawReviews = await getReviewList({ page: 0 });
+  // tslint:disable-next-line: no-console
+  console.log('Finish fetch reviews 🏁');
+  // tslint:disable-next-line: no-console
+  console.log('transforming data 🏭');
   const reviews = rawReviews.map(review => ({
     name: review.user.alias,
     rate: review.rating,
     comment: review.note,
     timestamp: review.created_at,
+    vintageSeoName: review.vintage.seo_name,
+    vintageName: review.vintage.name,
+    vintageId: review.vintage.id,
   }));
 
-  await fs.appendFile(rawReviewsPath, JSON.stringify({ reviews }));
+  const csvReview = stringify(reviews, { header: true });
+
+  // tslint:disable-next-line: no-console
+  console.log('Writing files 📝');
+  await fs.writeFile(rawReviewsPath, JSON.stringify({ rawReviews }));
+  await fs.writeFile(reviewsPath, JSON.stringify({ reviews }));
+  await fs.writeFile(csVReviewsPath, csvReview);
+
+  // tslint:disable-next-line: no-console
+  console.log('Done 🎉💥');
 };
 
 start();
