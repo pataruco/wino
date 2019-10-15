@@ -2,7 +2,7 @@
 
 ## What is it?
 
-A node app to get all the reviews from a wine
+A node app to get all the reviews from a wine and then see the sentiments using Google Cloud Machine Learning tool
 
 ## How to run it?
 
@@ -21,10 +21,12 @@ yarn
 - Start script
 
 ```sh
-yarn start
+yarn get:reviews
+yarn:get:sentiments
 ```
 
 - Go to [data](./data) folder and you can see
   - [raw data](./data/raw-reviews.json)
   - [data as JSON](./data/reviews.json)
-  - [data as CSV](./data/reviews.csv)
+  - [data with sentiment as CSV](./data/reviews-with-sentiment.csv)
+  - [data with sentiment as JSON](./data/reviews-with-sentiment.json)
