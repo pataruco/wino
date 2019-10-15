@@ -2,15 +2,15 @@ import stringify from 'csv-stringify/lib/sync';
 import { promises as fs } from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
-import { Review } from '../typings/review';
+import { Review } from '../../typings/review';
 
 interface ReviewsResponse {
   reviews: Review[];
 }
 
-const rawReviewsPath = path.resolve(__dirname, '../data/raw-reviews.json');
-const reviewsPath = path.resolve(__dirname, '../data/reviews.json');
-const csVReviewsPath = path.resolve(__dirname, '../data/reviews.csv');
+const rawReviewsPath = path.resolve(__dirname, '../../data/raw-reviews.json');
+const reviewsPath = path.resolve(__dirname, '../../data/reviews.json');
+const csVReviewsPath = path.resolve(__dirname, '../../data/reviews.csv');
 
 const getReview = async ({ page = 0 }): Promise<Review[]> => {
   try {
